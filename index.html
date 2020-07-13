@@ -64,6 +64,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-TCP三次握手与四次握手" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="article-date">
+  <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
+<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
+<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
+<p><strong>三次握手的过程</strong></p>
+<ol>
+<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
+<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
+<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
+</ol>
+<p>所以三次握手，就能确认双方，收发功能都正常。</p>
+<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
+<hr>
+<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
+<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
+<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
+<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
+<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
+<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
+<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" data-id="ckcjwd0q90001yg978bcvg66k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/15/hello-world/" class="article-date">
@@ -150,64 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/hello-world/" data-id="ckcjwb5n80001wv971neydyde" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-TCP三次握手与四次握手" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="article-date">
-  <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished">2019-02-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-
-<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
-<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
-<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
-<p><strong>三次握手的过程</strong></p>
-<ol>
-<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
-<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
-<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
-</ol>
-<p>所以三次握手，就能确认双方，收发功能都正常。</p>
-<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
-<hr>
-<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
-<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
-<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
-<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
-<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
-<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
-<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" data-id="ckcjwb5na0002wv975fogfg1a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/hello-world/" data-id="ckcjwd0qb0002yg9718n3ea6y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -303,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/" data-id="ckcjwb5nj000cwv97bu5a2zhm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/" data-id="ckcjwd0qq000cyg9712pe04iq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -678,7 +678,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/17/node%E9%9D%A2%E8%AF%95/" data-id="ckcjwb5nc0004wv975x0bgg80" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/17/node%E9%9D%A2%E8%AF%95/" data-id="ckcjwd0qe0004yg97ho1gg7hd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -771,7 +771,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/27/%E4%BA%91%E5%BC%80%E5%8F%91%E5%88%9D%E6%8E%A2/" data-id="ckcjwb5ng0007wv97b670ao5y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/27/%E4%BA%91%E5%BC%80%E5%8F%91%E5%88%9D%E6%8E%A2/" data-id="ckcjwd0qi0007yg97db2uht1w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -822,7 +822,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/26/%E7%94%9F%E6%88%90hexo%E7%9B%AE%E5%BD%95%E7%9A%84%E5%B7%A5%E5%85%B7-koa-generator/" data-id="ckcjwb5ni000bwv9753m24gxu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/26/%E7%94%9F%E6%88%90hexo%E7%9B%AE%E5%BD%95%E7%9A%84%E5%B7%A5%E5%85%B7-koa-generator/" data-id="ckcjwd0qm000byg972s084got" class="article-share-link">Share</a>
       
       
     </footer>
@@ -912,7 +912,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/25/mongoose%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" data-id="ckcjwb5nb0003wv979fwxgdts" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/25/mongoose%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" data-id="ckcjwd0qc0003yg97dcbd6bqw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongoose-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" rel="tag">mongoose 文档翻译</a></li></ul>
@@ -972,7 +972,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" data-id="ckcjwb5ng0008wv974ac54bbl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" data-id="ckcjwd0qk0008yg971w9a6aos" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1043,7 +1043,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" data-id="ckcjwb5nf0006wv972jxub1jl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" data-id="ckcjwd0qh0006yg976y2xazwf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1114,7 +1114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/13/%E6%8E%98%E9%87%91-webapck/" data-id="ckcjwb5nh000awv9711m9fex4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/13/%E6%8E%98%E9%87%91-webapck/" data-id="ckcjwd0ql000ayg97h1fsd4et" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1174,11 +1174,11 @@
       <ul>
         
           <li>
-            <a href="/2019/02/15/hello-world/">类数组对象</a>
+            <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
           </li>
         
           <li>
-            <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
+            <a href="/2019/02/15/hello-world/">类数组对象</a>
           </li>
         
           <li>
