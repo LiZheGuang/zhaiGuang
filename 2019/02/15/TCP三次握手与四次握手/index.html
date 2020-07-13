@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>TCP三次握手与四次握手 | 前端圈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TCP三次握手与四次握手什么是三次握手？所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包 三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。 为什么要三次握手？三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常 三次握手的过程  第一次握手：client什么都不能确认；server确认了对方发送正常 第二次握手：client确认了：自己发送，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP三次握手与四次握手">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/index.html">
+<meta property="og:site_name" content="前端圈">
+<meta property="og:description" content="TCP三次握手与四次握手什么是三次握手？所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包 三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。 为什么要三次握手？三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常 三次握手的过程  第一次握手：client什么都不能确认；server确认了对方发送正常 第二次握手：client确认了：自己发送，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-02-15T04:17:08.000Z">
+<meta property="article:modified_time" content="2019-02-15T04:17:08.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="前端圈" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">前端圈</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-TCP三次握手与四次握手" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="article-date">
+  <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TCP三次握手与四次握手
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
+<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
+<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
+<p><strong>三次握手的过程</strong></p>
+<ol>
+<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
+<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
+<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
+</ol>
+<p>所以三次握手，就能确认双方，收发功能都正常。</p>
+<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
+<hr>
+<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
+<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
+<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
+<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
+<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
+<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
+<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" data-id="ckcjwb5na0002wv975fogfg1a" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/15/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          类数组对象
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">类数组对象</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" rel="tag">mongoose 文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/mongoose-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">mongoose 文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/15/hello-world/">类数组对象</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/">类数组对象</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/17/node%E9%9D%A2%E8%AF%95/">node面试</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/27/%E4%BA%91%E5%BC%80%E5%8F%91%E5%88%9D%E6%8E%A2/">云开发初探</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

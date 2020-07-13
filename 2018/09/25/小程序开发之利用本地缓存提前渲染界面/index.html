@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>小程序开发之利用本地缓存提前渲染界面 | 前端圈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="小程序开发之利用本地缓存提前渲染界面12“摘自微信官方团队”讨论一个需求：我们要实现了一个购物商城的小程序，首页是展示一堆商品的列表。一般的实现方法就是在页面onLoad回调之后通过wx.request向服务器发起一个请求去拉取首页的商品列表数据，等待wx.request的success回调之后把数据通过setData渲染到界面上。  那么，在这种正常的请求中，是否还能有优化的方法？ 以下代码为微">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序开发之利用本地缓存提前渲染界面">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="前端圈">
+<meta property="og:description" content="小程序开发之利用本地缓存提前渲染界面12“摘自微信官方团队”讨论一个需求：我们要实现了一个购物商城的小程序，首页是展示一堆商品的列表。一般的实现方法就是在页面onLoad回调之后通过wx.request向服务器发起一个请求去拉取首页的商品列表数据，等待wx.request的success回调之后把数据通过setData渲染到界面上。  那么，在这种正常的请求中，是否还能有优化的方法？ 以下代码为微">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-09-25T10:02:14.000Z">
+<meta property="article:modified_time" content="2019-02-15T04:17:08.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="前端圈" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">前端圈</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-小程序开发之利用本地缓存提前渲染界面" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" class="article-date">
+  <time datetime="2018-09-25T10:02:14.000Z" itemprop="datePublished">2018-09-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      小程序开发之利用本地缓存提前渲染界面
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="小程序开发之利用本地缓存提前渲染界面"><a href="#小程序开发之利用本地缓存提前渲染界面" class="headerlink" title="小程序开发之利用本地缓存提前渲染界面"></a>小程序开发之利用本地缓存提前渲染界面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“摘自微信官方团队”</span><br><span class="line">讨论一个需求：我们要实现了一个购物商城的小程序，首页是展示一堆商品的列表。一般的实现方法就是在页面onLoad回调之后通过wx.request向服务器发起一个请求去拉取首页的商品列表数据，等待wx.request的success回调之后把数据通过setData渲染到界面上。</span><br></pre></td></tr></table></figure>
+
+<p>那么，在这种正常的请求中，是否还能有优化的方法？</p>
+<p>以下代码为微信团队提供的优化思路</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  onLoad: function() &#123;</span><br><span class="line">    var that &#x3D; this</span><br><span class="line">    var list &#x3D;wx.getStorageSync(&quot;list&quot;)</span><br><span class="line">    if (list) &#123; &#x2F;&#x2F; 本地如果有缓存列表，提前渲染</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        list: list</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: &#39;https:&#x2F;&#x2F;test.com&#x2F;getproductlist&#39;,</span><br><span class="line">      success: function (res) &#123;</span><br><span class="line">        if (res.statusCode &#x3D;&#x3D;&#x3D; 200) &#123;</span><br><span class="line">          list &#x3D; res.data.list</span><br><span class="line">          that.setData(&#123; &#x2F;&#x2F; 再次渲染列表</span><br><span class="line">            list: list</span><br><span class="line">          &#125;)</span><br><span class="line">          wx.setStorageSync(&quot;list&quot;,list) &#x2F;&#x2F; 覆盖缓存数据</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<p><strong>解析简单以上简单的代码</strong>：</p>
+<p>这种做法可以让用户体验你的小程序时感觉加载非常快，但是你还要留意这个做法的缺点，如果小程序对渲染的数据实时性要求非常高的话，用户看到一个旧数据的界面会非常困惑。因此一般在对数据实时性/一致性要求不高的页面采用这个方法来做提前渲染，用以优化小程序体验。</p>
+<p>整理这段官方的说明:</p>
+<p><strong>优点</strong><br>让用户感知到小程序加载的速度非常快！</p>
+<p><strong>为什么？</strong><br>假设发送请求之后的2秒内收到返回，那么在请求返回前可以渲染本地缓存的数据，不会产生用户，盯着一个白页面与加载页的情况。<br>避免了普遍的没有数据会留白与加载中的场景</p>
+<p><strong>原因：</strong><br>在发起请求之前就可以把缓存进行渲染，在请求成功之后再次进行请求后返回的数据渲染。</p>
+<p><strong>缺点</strong><br>难免会有老数据的一闪而过，如果请求服务端过程中不给力的话，会让用户在很长时间看到不正确的数据！</p>
+<p><strong>使用场景</strong><br>数据不会实时变更的场景<br>用户认为这个不是很重要的场景<br>有本地缓存与无本地缓存的对比<br>对比条件为 “用户看到页面数据展现的时间”<br>测试场景为小程序模拟器</p>
+<p>以上截图仅为，在模拟器上运行，无缓存总会比有缓存的提前平均在300MS的时间让用户感观到视图，当然模拟器上会有瑕疵的白色页面。</p>
+<p>怎么样更好的使用微信小程序缓存？</p>
+<p><strong>什么时候使用本地缓存？</strong><br>不能乱用</p>
+<p>举个列子：订单列表，退换货商品详情这些地方不能用，如果一个商品的价格随意变动，只会给用户带来不稳定的因素。</p>
+<p>什么时候要删除本地缓存？（这个我感觉还好）</p>
+<p>小程序有10MB缓存大小，如果本地缓存超过10M，添加本地缓存的时候就会fail</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" data-id="ckcjwb5ng0008wv974ac54bbl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/25/mongoose%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mongoose文档翻译
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">webpack-官方文档</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongoose-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" rel="tag">mongoose 文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/mongoose-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" style="font-size: 10px;">mongoose 文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/15/hello-world/">类数组对象</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">TCP三次握手与四次握手</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/">类数组对象</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/17/node%E9%9D%A2%E8%AF%95/">node面试</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/27/%E4%BA%91%E5%BC%80%E5%8F%91%E5%88%9D%E6%8E%A2/">云开发初探</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
