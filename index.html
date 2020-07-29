@@ -184,7 +184,7 @@
             
 
   
-    <article id="post-TCP三次握手与四次握手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-git-cz" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -192,7 +192,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" target="_blank">TCP三次握手与四次握手</a>
+	  <a class="article-title" href="/zhaiGuang/2020/07/29/git-cz/" target="_blank">git-cz</a>
   
     </h1>
   
@@ -200,8 +200,8 @@
 
   
   
-<a href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="archive-article-date">
-        <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+<a href="/zhaiGuang/2020/07/29/git-cz/" class="archive-article-date">
+        <time datetime="2020-07-29T08:30:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
 </a>
 
   
@@ -213,27 +213,20 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <!-- toc -->
+    <h2 id="git-cz-一款git-commit-规范统一工具"><a href="#git-cz-一款git-commit-规范统一工具" class="headerlink" title="git-cz 一款git commit  规范统一工具"></a>git-cz 一款git commit  规范统一工具</h2><p><img src="./img/git-cz.png" alt="git-demoImage-1"></p>
+<p> 简而言之，git commit 就是你在做一次修改后类似于写一个备注，现在安装了commitizen后，你可以使用git cz取代git commit，每次提交的时候可以选择本次commit的类型，这样commit的文本会更具有可读性。</p>
+<h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g git-cz</span><br><span class="line">git-cz</span><br></pre></td></tr></table></figure>
 
-<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
-<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
-<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
-<p><strong>三次握手的过程</strong></p>
-<ol>
-<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
-<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
-<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
-</ol>
-<p>所以三次握手，就能确认双方，收发功能都正常。</p>
-<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
-<hr>
-<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
-<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
-<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
-<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
-<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
-<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
-<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
+
+<h4 id="与Commitizen在本地安装"><a href="#与Commitizen在本地安装" class="headerlink" title="与Commitizen在本地安装"></a>与Commitizen在本地安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g commitizen</span><br><span class="line">npm install --save-dev git-cz</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>package.json:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;config&quot;: &#123;</span><br><span class="line">    &quot;commitizen&quot;: &#123;</span><br><span class="line">      &quot;path&quot;: &quot;git-cz&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>run</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cz</span><br></pre></td></tr></table></figure>
 
     
 
@@ -245,11 +238,22 @@
   <div class="article-info article-info-index">
     
     
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">github git-cz 命令行工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
     
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">展开全文 >></a>
+      <a class="article-more-a" href="/zhaiGuang/2020/07/29/git-cz/">展开全文 >></a>
     </p>
     
 
@@ -384,6 +388,101 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/zhaiGuang/2019/02/15/hello-world/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-TCP三次握手与四次握手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" target="_blank">TCP三次握手与四次握手</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="archive-article-date">
+        <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <!-- toc -->
+
+<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
+<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
+<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
+<p><strong>三次握手的过程</strong></p>
+<ol>
+<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
+<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
+<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
+</ol>
+<p>所以三次握手，就能确认双方，收发功能都正常。</p>
+<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
+<hr>
+<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
+<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
+<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
+<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
+<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
+<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
+<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">展开全文 >></a>
     </p>
     
 
@@ -1524,115 +1623,6 @@
 
 
   
-    <article id="post-掘金-webapck" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/zhaiGuang/2018/07/13/%E6%8E%98%E9%87%91-webapck/" target="_blank">掘金-webapck</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/zhaiGuang/2018/07/13/%E6%8E%98%E9%87%91-webapck/" class="archive-article-date">
-        <time datetime="2018-07-13T10:52:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="掘金webpack小册"><a href="#掘金webpack小册" class="headerlink" title="掘金webpack小册"></a>掘金webpack小册</h1><h2 id="webpack-的概念和基础使用"><a href="#webpack-的概念和基础使用" class="headerlink" title="webpack 的概念和基础使用"></a>webpack 的概念和基础使用</h2><p>我们在小册介绍中提到，webpack 是一个 JS 代码模块化的打包工具，藉由它强大的扩展能力，随着社区的发展，逐渐成为一个功能完善的构建工具。相信开始学习这个小册的同学们多多少少都能够理解为什么前端开发中会使用到 webpack，我们不再详细介绍 webpack 的使用背景，直奔本小节的主题。…</p>
-<p>因为是作为项目依赖进行安装，所以不会有全局的命令，npm/yarn 会帮助我们在当前项目依赖中寻找对应的命令执行，如果是全局安装的 webpack，直接执行 webpack –mode production 就可以。</p>
-<p>webpack 4.x 的版本可以零配置就开始进行构建，但是笔者觉得这个功能还不全面，缺少很多实际项目需要的功能，所以基本你还是需要一个配置文件，后边会详细讲解。</p>
-<p>我们先来了解 webpack 中的一些基本概念。…</p>
-<hr>
-<h3 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h3><p>webpack 中提供一种处理多种文件格式的机制，便是使用 loader。我们可以把 loader 理解为是一个转换器，负责把某种文件格式的内容转换成 webpack 可以支持打包的模块。</p>
-<p>举个例子，在没有添加额外插件的情况下，webpack 会默认把所有依赖打包成 js 文件，如果入口文件依赖一个 .hbs 的模板文件以及一个 .css 的样式文件，那么我们需要 handlebars-loader 来处理 .hbs 文件，需要 css-loader 来处理 .css 文件（这里其实还需要 style-loader，后续详解），最终把不同格式的文件都解析成 js 代码，以便打包后在浏览器中运行。</p>
-<p>当我们需要使用不同的 loader 来解析处理不同类型的文件时，我们可以在 module.rules 字段下来配置相关的规则，例如使用 Babel 来处理 .js 文件：…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: &#x2F;\.jsx?&#x2F;, &#x2F;&#x2F; 匹配文件路径的正则表达式，通常我们都是匹配文件类型后缀</span><br><span class="line">      include: [</span><br><span class="line">        path.resolve(__dirname, &#39;src&#39;) &#x2F;&#x2F; 指定哪些路径下的文件需要经过 loader 处理</span><br><span class="line">      ],</span><br><span class="line">      use: &#39;babel-loader&#39;, &#x2F;&#x2F; 指定使用的 loader</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;...</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h3 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h3><p>在 webpack 的构建流程中，plugin 用于处理更多其他的一些构建任务。可以这么理解，模块代码转换的工作由 loader 来处理，除此之外的其他任何工作都可以交由 plugin 来完成。通过添加我们需要的 plugin，可以满足更多构建中特殊的需求。例如，要使用压缩 JS 代码的 uglifyjs-webpack-plugin 插件，只需在配置中通过 plugins 字段添加新的 plugin 即可：…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const UglifyPlugin &#x3D; require(&#39;uglifyjs-webpack-plugin&#39;)</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    new UglifyPlugin()</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h2 id="搭建基本的前端开发环境"><a href="#搭建基本的前端开发环境" class="headerlink" title="搭建基本的前端开发环境"></a>搭建基本的前端开发环境</h2><p>我们日常使用的前端开发环境应该是怎样的？我们可以尝试着把基本前端开发环境的需求列一下：</p>
-<p>构建我们发布需要的 HTML、CSS、JS 文件<br>使用 CSS 预处理器来编写样式<br>处理和压缩图片<br>使用 Babel 来支持 ES 新特性<br>本地提供静态服务以方便开发调试…</p>
-<h3 id="html-webpack-plugin-什么时候使用？"><a href="#html-webpack-plugin-什么时候使用？" class="headerlink" title="html-webpack-plugin 什么时候使用？"></a><strong>html-webpack-plugin</strong> 什么时候使用？</h3><p>如果我们的文件名或者路径会变化，例如使用 [hash] 来进行命名，那么最好是将 HTML 引用路径和我们的构建结果关联起来，这个时候我们可以使用</p>
-<hr>
-<h2 id="使用Plugin"><a href="#使用Plugin" class="headerlink" title="使用Plugin"></a>使用Plugin</h2><p>webpack 中的 plugin 大多都提供额外的能力，它们在 webpack 中的配置都只是把插件实例添加到 plugins 字段的数组中。不过由于需要提供不同的功能，不同的插件本身的配置比较多样化。</p>
-<p>社区中有很多 webpack 插件可供使用，而优秀的插件基本上都提供了详细的使用说明文档。更多的插件可以在这里查找：plugins in awesome-webpack。</p>
-<p>下面通过介绍几个常用的插件来了解插件的使用方法。</p>
-<h3 id="DefinePlugin"><a href="#DefinePlugin" class="headerlink" title="DefinePlugin"></a>DefinePlugin</h3><p>属于内置插件,可以使用webpack.DefinePlugin直接获取</p>
-<p><strong>作用</strong></p>
-<p>这个插件用于创建一些在编译时可以配置的全局常量，这些常量的值我们可以在 webpack 的配置中去指定</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  plugins: [</span><br><span class="line">    new webpack.DefinePlugin(&#123;</span><br><span class="line">      PRODUCTION: JSON.stringify(true), &#x2F;&#x2F; const PRODUCTION &#x3D; true</span><br><span class="line">      VERSION: JSON.stringify(&#39;5fa3b9&#39;), &#x2F;&#x2F; const VERSION &#x3D; &#39;5fa3b9&#39;</span><br><span class="line">      BROWSER_SUPPORTS_HTML5: true, &#x2F;&#x2F; const BROWSER_SUPPORTS_HTML5 &#x3D; &#39;true&#39;</span><br><span class="line">      TWO: &#39;1+1&#39;, &#x2F;&#x2F; const TWO &#x3D; 1 + 1,</span><br><span class="line">      CONSTANTS: &#123;</span><br><span class="line">        APP_VERSION: JSON.stringify(&#39;1.1.2&#39;) &#x2F;&#x2F; const CONSTANTS &#x3D; &#123; APP_VERSION: &#39;1.1.2&#39; &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h2 id="更好地使用-webpack-dev-server"><a href="#更好地使用-webpack-dev-server" class="headerlink" title="更好地使用 webpack-dev-server"></a>更好地使用 webpack-dev-server</h2><p>在构建带吧并部署到生产环境之前，我们需要一个本地环境，用于运行我们开发的代码。这个环境相当于提供了一个简单的服务器，用于访问webpack构建好的静态文件，我们日常开发可以使用它来调试前端代码。</p>
-<h3 id="webpack-dev-server-的基础使用"><a href="#webpack-dev-server-的基础使用" class="headerlink" title="webpack-dev-server 的基础使用"></a>webpack-dev-server 的基础使用</h3><p>webpack-dev-server 是一个 npm package，安装后在已经有 webpack 配置文件的项目目录下直接启动就可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server -g</span><br><span class="line">webpack-dev-server --mode development</span><br></pre></td></tr></table></figure>
-
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/zhaiGuang/2018/07/13/%E6%8E%98%E9%87%91-webapck/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/zhaiGuang/page/2/">2</a><a class="extend next" rel="next" href="/zhaiGuang/page/2/">Next &amp;raquo;</a>
@@ -1764,6 +1754,10 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">github git-cz 命令行工具</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">mongoose 文档翻译</a>
