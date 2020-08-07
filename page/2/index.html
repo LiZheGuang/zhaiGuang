@@ -184,6 +184,115 @@
             
 
   
+    <article id="post-webpack-官方文档" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/zhaiGuang/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" target="_blank">webpack-官方文档</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/zhaiGuang/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" class="archive-article-date">
+        <time datetime="2018-07-13T10:54:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><p>###clean-webpack-plugin</p>
+<p>你可能已经注意到，由于过去的指南和代码示例遗留下来，导致我们的 /dist 文件夹相当杂乱。webpack 会生成文件，然后将这些文件放置在 /dist 文件夹中，但是 webpack 无法追踪到哪些文件是实际在项目中用到的。</p>
+<p>通常，在每次构建前清理 /dist 文件夹，是比较推荐的做法，因此只会生成用到的文件。让我们完成这个需求。</p>
+<p>clean-webpack-plugin 是一个比较普及的管理插件，让我们安装和配置下。</p>
+<hr>
+<p><img src="/zhaiGuang/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/1531383837459.png" alt="Alt text"></p>
+<hr>
+<p>###使用 source map</p>
+<p>当 webpack 打包源代码时，可能会很难追踪到错误和警告在源代码中的原始位置。例如，如果将三个源文件（a.js, b.js 和 c.js）打包到一个 bundle（bundle.js）中，而其中一个源文件包含一个错误，那么堆栈跟踪就会简单地指向到 bundle.js。这并通常没有太多帮助，因为你可能需要准确地知道错误来自于哪个源文件。</p>
+<p>为了更容易地追踪错误和警告，JavaScript 提供了 source map 功能，将编译后的代码映射回原始源代码。如果一个错误来自于 b.js，source map 就会明确的告诉你。</p>
+<p>source map 有很多不同的选项可用，请务必仔细阅读它们，以便可以根据需要进行配置。</p>
+<p>对于本指南，我们使用 inline-source-map 选项，这有助于解释说明我们的目的</p>
+<hr>
+<p>###模块热替换<br>模块热替换(Hot Module Replacement 或 HMR)是 webpack 提供的最有用的功能之一。它允许在运行时更新各种模块，而无需进行完全刷新。</p>
+<p><strong>问题</strong></p>
+<p>模块热替换可能比较难掌握。为了说明这一点，我们回到刚才的示例中。如果你继续点击示例页面上的按钮，你会发现控制台仍在打印这旧的 printMe 功能。</p>
+<p>这是因为按钮的 onclick 事件仍然绑定在旧的 printMe 函数上。</p>
+<p>为了让它与 HRM 正常工作，我们需要使用 module.hot.accept 更新绑定到新的 printMe 函数上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"> import _ from &#39;lodash&#39;;</span><br><span class="line"> import printMe from &#39;.&#x2F;print.js&#39;;</span><br><span class="line"></span><br><span class="line"> function component() &#123;</span><br><span class="line">   var element &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">   var btn &#x3D; document.createElement(&#39;button&#39;);</span><br><span class="line"></span><br><span class="line">   element.innerHTML &#x3D; _.join([&#39;Hello&#39;, &#39;webpack&#39;], &#39; &#39;);</span><br><span class="line"></span><br><span class="line">   btn.innerHTML &#x3D; &#39;Click me and check the console!&#39;;</span><br><span class="line">   btn.onclick &#x3D; printMe;  &#x2F;&#x2F; onclick 事件绑定原始的 printMe 函数上</span><br><span class="line"></span><br><span class="line">   element.appendChild(btn);</span><br><span class="line"></span><br><span class="line">   return element;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">let element &#x3D; component(); &#x2F;&#x2F; 当 print.js 改变导致页面重新渲染时，重新获取渲染的元素</span><br><span class="line">document.body.appendChild(element);</span><br><span class="line"></span><br><span class="line"> if (module.hot) &#123;</span><br><span class="line">   module.hot.accept(&#39;.&#x2F;print.js&#39;, function() &#123;</span><br><span class="line">     console.log(&#39;Accepting the updated printMe module!&#39;);</span><br><span class="line">    document.body.removeChild(element);</span><br><span class="line">    element &#x3D; component(); &#x2F;&#x2F; 重新渲染页面后，component 更新 click 事件处理</span><br><span class="line">    document.body.appendChild(element);</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="HMR-修改样式表"><a href="#HMR-修改样式表" class="headerlink" title="HMR 修改样式表"></a>HMR 修改样式表</h5><p>借助于 style-loader 的帮助，CSS 的模块热替换实际上是相当简单的。当更新 CSS 依赖模块时，此 loader 在后台使用 module.hot.accept 来修补(patch)  标签。</p>
+<p>所以，可以使用以下命令安装两个 loader ：</p>
+<p><code>npm install --save-dev style-loader css-loader</code></p>
+<p><img src="/zhaiGuang/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/1531394549181.png" alt="Alt text"></p>
+<hr>
+<h3 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h3><p>ree shaking 是一个术语，通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code)。它依赖于 ES2015 模块系统中的静态结构特性，例如 import 和 export。这个术语和概念实际上是兴起于 ES2015 模块打包工具 rollup。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">webpack.config.js</span><br><span class="line"></span><br><span class="line">mode:&quot;development&quot; &#x2F;&#x2F;development不压缩  &#x2F;&#x2F;production压缩</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="生产环境构建"><a href="#生产环境构建" class="headerlink" title="生产环境构建"></a>生产环境构建</h3><p>在本指南中，我们将深入一些最佳实践，并且使用工具，将网站或应用程序构建到生产环境中。</p>
+<hr>
+<h3 id="代码分离"><a href="#代码分离" class="headerlink" title="代码分离"></a>代码分离</h3><p>代码分离是 webpack 中最引人注目的特性之一。此特性能够把代码分离到不同的 bundle 中，然后可以按需加载或并行加载这些文件。代码分离可以用于获取更小的 bundle，以及控制资源加载优先级，如果使用合理，会极大影响加载时间。</p>
+<h4 id="入口起点-entry-points"><a href="#入口起点-entry-points" class="headerlink" title="入口起点(entry points)"></a>入口起点(entry points)</h4><p>这是迄今为止最简单、最直观的分离代码的方式。不过，这种方式手动配置较多，并有一些陷阱，我们将会解决这些问题。先来看看如何从 main bundle 中分离另一个模块：</p>
+<hr>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h3 id="Heading"><a href="#Heading" class="headerlink" title="Heading"></a>Heading</h3>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/zhaiGuang/2018/07/13/webpack-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-掘金-webapck" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
