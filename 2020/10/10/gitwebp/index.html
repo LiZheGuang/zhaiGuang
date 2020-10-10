@@ -6,21 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://lizheguang.github.io">
-  <title>TCP三次握手与四次握手 | 前端圈</title>
+  <title>apng、webp适用性调研与兼容性方案 | 前端圈</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="TCP三次握手与四次握手什么是三次握手？所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包 三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。 为什么要三次握手？三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常 三次握手的过程  第一次握手：client什么都不能确认；server确认了对方发送正常 第二次握手：client确认了：自己发送，">
+  <meta name="description" content="apng、webp适用性调研与兼容性方案背景业务中大量使用gif动态图，动画不细腻，体积大，占用不必要的带宽，根据这几点，寻找能替代gif图的方案（动画流程，体积小） 动态图类型GIFGIF 是一个非常古老的格式，1987 年诞生，最后一个版本是 1989 年。（这就是为什么 GIF 文件头的 magic number 是 GIF89a） 颜色 GIF 每个像素只有 8 bit，也就是说只有 25">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP三次握手与四次握手">
-<meta property="og:url" content="https://lizheguang.github.io/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/index.html">
+<meta property="og:title" content="apng、webp适用性调研与兼容性方案">
+<meta property="og:url" content="https://lizheguang.github.io/2020/10/10/gitwebp/index.html">
 <meta property="og:site_name" content="前端圈">
-<meta property="og:description" content="TCP三次握手与四次握手什么是三次握手？所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包 三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。 为什么要三次握手？三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常 三次握手的过程  第一次握手：client什么都不能确认；server确认了对方发送正常 第二次握手：client确认了：自己发送，">
+<meta property="og:description" content="apng、webp适用性调研与兼容性方案背景业务中大量使用gif动态图，动画不细腻，体积大，占用不必要的带宽，根据这几点，寻找能替代gif图的方案（动画流程，体积小） 动态图类型GIFGIF 是一个非常古老的格式，1987 年诞生，最后一个版本是 1989 年。（这就是为什么 GIF 文件头的 magic number 是 GIF89a） 颜色 GIF 每个像素只有 8 bit，也就是说只有 25">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-02-15T04:17:08.000Z">
-<meta property="article:modified_time" content="2019-02-15T04:17:08.000Z">
+<meta property="og:image" content="https://lizheguang.github.io/zhaiGuang/2020/10/10/gitwebp/1601351760565.png">
+<meta property="og:image" content="https://lizheguang.github.io/zhaiGuang/2020/10/10/gitwebp/1601351344820.png">
+<meta property="article:published_time" content="2020-10-10T09:27:46.646Z">
+<meta property="article:modified_time" content="2020-10-10T09:30:57.818Z">
 <meta property="article:author" content="前端圈">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lizheguang.github.io/zhaiGuang/2020/10/10/gitwebp/1601351760565.png">
   
     <link rel="alternative" href="/zhaiGuang/atom.xml" title="前端圈" type="application/atom+xml">
   
@@ -181,14 +184,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TCP三次握手与四次握手" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-gitwebp" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      TCP三次握手与四次握手
+      apng、webp适用性调研与兼容性方案
     </h1>
   
 
@@ -200,8 +203,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" class="archive-article-date">
-        <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+<a href="/zhaiGuang/2020/10/10/gitwebp/" class="archive-article-date">
+        <time datetime="2020-10-10T09:27:46.646Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
 </a>
 
   
@@ -214,7 +217,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">623字</span>
+      <span class="post-count">1.6k字</span>
     </span>
   </span>
 
@@ -223,7 +226,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">2分</span>
+      <span class="post-count">5分</span>
     </span>
   </span>
 </div>
@@ -234,27 +237,69 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <!-- toc -->
-
-<h2 id="TCP三次握手与四次握手"><a href="#TCP三次握手与四次握手" class="headerlink" title="TCP三次握手与四次握手"></a>TCP三次握手与四次握手</h2><h3 id="什么是三次握手？"><a href="#什么是三次握手？" class="headerlink" title="什么是三次握手？"></a>什么是三次握手？</h3><p>所谓三次握手，是指建立一个TCP连接时，需要客户端和服务器总共发送3个包</p>
-<p>三次握手的目的是建立可靠的通信信道，简单来说就是数据的发送与接收。</p>
-<h4 id="为什么要三次握手？"><a href="#为什么要三次握手？" class="headerlink" title="为什么要三次握手？"></a>为什么要三次握手？</h4><p>三次握手最主要的目的就是双方确认自己与对方的发送与接收机能正常</p>
-<p><strong>三次握手的过程</strong></p>
-<ol>
-<li>第一次握手：client什么都不能确认；server确认了对方发送正常</li>
-<li>第二次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己接收正常，对方发送正常</li>
-<li>第三次握手：client确认了：自己发送，接收正常，对方发送，接收正常；server确认了：自己发送，接收正常，对方发送接收正常。</li>
-</ol>
-<p>所以三次握手，就能确认双方，收发功能都正常。</p>
-<p>整个三次握手，其实就是为了验证彼此是否接收都正常</p>
+    <h2 id="apng、webp适用性调研与兼容性方案"><a href="#apng、webp适用性调研与兼容性方案" class="headerlink" title="apng、webp适用性调研与兼容性方案"></a>apng、webp适用性调研与兼容性方案</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>业务中大量使用gif动态图，动画不细腻，体积大，占用不必要的带宽，根据这几点，寻找能替代gif图的方案（动画流程，体积小）</p>
+<h3 id="动态图类型"><a href="#动态图类型" class="headerlink" title="动态图类型"></a>动态图类型</h3><h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>GIF 是一个非常古老的格式，1987 年诞生，最后一个版本是 1989 年。（这就是为什么 GIF 文件头的 magic number 是 GIF89a）</p>
+<p><strong>颜色</strong></p>
+<p>GIF 每个像素只有 8 bit，也就是说只有 256 种颜色，于是很多人误以为 GIF 不支持 24 bit RGB，但实际上，GIF 的限制是每一帧最多只能有 256 种颜色，但是每种颜色可以是 24 bit 的。不过即使是这样，256 种颜色还是太少了，这就导致了 GIF 的画质都比较差。</p>
+<p>而 APNG 和 WebP 则完全没有这方面的限制。</p>
+<p><strong>透明</strong></p>
+<p>GIF 虽然也支持透明，但不支持半透明，只支持完全透明或者完全不透明。如果把一个边缘是半透明的图片转换成 GIF，就会出现杂边问题。</p>
+<p><strong>兼容性</strong></p>
+<p>是唯一GIF的优势了，几乎所有浏览器都支持GIF</p>
 <hr>
-<h3 id="什么是四次挥手？"><a href="#什么是四次挥手？" class="headerlink" title="什么是四次挥手？"></a>什么是四次挥手？</h3><p>假设Client端发起中断连接请求，也就是发送FIN报文。</p>
-<p>Server端接到FIN报文后，意思是说”我Client端没有数据要发给你了”，但是如果你还有数据没有发送完成，则不必急着关闭Socket，可以继续发送数据。</p>
-<p>所以你先发送ACK，”告诉Client端，你的请求我收到了，但是我还没准备好，请继续你等我的消息”。</p>
-<p>这个时候Client端就进入FIN_WAIT状态，继续等待Server端的FIN报文。当Server端确定数据已发送完成，则向Client端发送FIN报文，”告诉Client端，好了，我这边数据发完了，准备好关闭连接了”。</p>
-<p>Client端收到FIN报文后，”就知道可以关闭连接了，但是他还是不相信网络，怕Server端不知道要关闭，所以发送ACK后进入TIME_WAIT状态，如果Server端没有收到ACK则可以重传。“，Server端收到ACK后，”就知道可以断开连接了”。</p>
-<p>Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，我Client端也可以关闭连接了。Ok，TCP连接就这样关闭了！</p>
-<h4 id="为什么要四次挥手？"><a href="#为什么要四次挥手？" class="headerlink" title="为什么要四次挥手？"></a>为什么要四次挥手？</h4><p>一方发送FIN只表示自己发完了所有要发的数据，但还允许对方继续把没发完的数据发过来。</p>
+<h4 id="APNG"><a href="#APNG" class="headerlink" title="APNG"></a>APNG</h4><p><strong>APNG是什么</strong></p>
+<p>APNG 是什么？相对于 GIF 有哪些优势？APNG 是一个基于 PNG 格式的位图动画格式图片，因为对于一直以来的特点就是以动态显示为主的 GIF，为了更好地在网络上传播，它需要牺牲质量来降低体积，图像信息比较多的情况下，颗粒感很明显。APNG 是普通 png 图片的升级版，它的后缀依然是.png，包含动态的情况下体积会比普通静态 png 打出数倍，可以做到无损的情况展示动态。其诞生的目的是为了替代老旧的 GIF 格式，但它目前并没有获得 PNG 组织官方的认可。</p>
+<p><strong>APNG应用场景</strong></p>
+<p><img src="/zhaiGuang/2020/10/10/gitwebp/1601351760565.png" alt="Alt text"></p>
+<p><a href="http://littlesvr.ca/apng/gif_vs_apng.html" target="_blank" rel="noopener">GIF VS APNG</a></p>
+<p><strong>兼容性</strong><br><img src="/zhaiGuang/2020/10/10/gitwebp/1601351344820.png" alt="Alt text"></p>
+<p><a href="https://caniuse.com/?search=APNG" target="_blank" rel="noopener">详情兼容情况</a><br>对于 APNG 而言，支持的浏览器只有 Firefox 和 Safari，同时 Chrome 59 也将支持 APNG，</p>
+<p><strong>对比</strong></p>
+<p>GIF：</p>
+<p>最多支持 8 位 256 色，色阶过渡糟糕，图片具有颗粒感<br>不支持 Alpha 透明通道，边缘有杂边<br>APNG：</p>
+<p>支持 24 位真彩色图片<br>支持 8 位 Alpha 透明通道<br>向下兼容 PNG</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>很难被标准化</li>
+<li>生成比较繁琐（特殊处理才能比原有GIF图体积大，在压缩上并没有webp效果好,参考动效输出：用APNG代替GIF完美输出动态效果）</li>
+</ul>
+<hr>
+<h5 id="WEBP"><a href="#WEBP" class="headerlink" title="WEBP"></a>WEBP</h5><p>先放一个 WebP 转换的示例链接，可以直观感受 WebP 在图片大小上的优势。</p>
+<p><a href="https://www.upyun.com/webp" target="_blank" rel="noopener">DEMO地址</a></p>
+<p>WebP，是一种同时提供了有损压缩与无损压缩的图片文件格式，派生自视频编码格式 VP8。WebP 最初在2010年发布，目标是减少文件大小，但达到 和 JEPG 格式相同的图片质量，希望能够减少图片档在网络上的发送时间</p>
+<p><strong>同等质量但是图片更小</strong></p>
+<p><a href="https://res.cloudinary.com/demo/image/upload/bored_animation.gif" target="_blank" rel="noopener">GIF图</a></p>
+<p><a href="https://res.cloudinary.com/demo/image/upload/fl_awebp/bored_animation.webp" target="_blank" rel="noopener">webp</a></p>
+<p>从动画GIF切换到动画WebP的结果令人印象深刻-在上面显示的示例中，图像大小和带宽减少了65-90％，并且具有相同的视觉效果。尽管WebP仅由少数浏览器使用，但是最新版本的Chrome变得越来越流行，因此WebP的重要性正在上升。</p>
+<p>此外，如果将原始的高质量视频转换为WebP（而不仅仅是像我们在上面的示例中那样从GIF转换为WebP），则与WebP格式的全彩色支持相比，您将获得更好的视觉效果动画(GIF中最多只能显示256种颜色。)</p>
+<p><strong>压缩之后质量无明显变化</strong><br>JPEG 格式的图片在质量较低时会有明显的缺陷，尤其是当图片包含微小的细节或文本时，但 WebP 格式则没有明显的缺陷，但也会在低质量设置时产生稍微模糊的图像</p>
+<p><strong>完美支持无损图像</strong><br>WebP 同样支持一如 PNG 格式的无损模式，想要生成无损的 WebP 文件，只需将「quality」变量设置为 100</p>
+<p><strong>支持动态图（Animated WebP）</strong></p>
+<p>兼容性不是很乐观</p>
+<p>苹果的Safari浏览器及其iOS Safari浏览器将在Safari 14和iOS 14（预计于2020年9月发布）中都具有WebP支持</p>
+<p><strong>缺点：浏览器兼容性</strong></p>
+<p>在洋葱学院APP中存在了兼容问题:<br>1.安卓暂时未发现不兼容问题<br>2.ios 系统存在版本兼容问题（12.x系统上就存在了不兼容情况）</p>
+<p><strong>兼容场景：</strong></p>
+<p><a href="https://caniuse.com/?search=Webp" target="_blank" rel="noopener">WEBP兼容地址</a><br><a href="https://caniuse.com/?search=picture" target="_blank" rel="noopener">picture兼容地址</a></p>
+<ul>
+<li>解决兼容：</li>
+<li>七牛提供了高级图像处理的功能</li>
+<li>通过URL后拼接参数，能把gif图处理成webp</li>
+<li>1.安卓下七牛CDN借用高级图像处理功能form成webp（IOS维持GIF图原样）</li>
+<li>2.JS判断是否支持webp如果支持，把gif图通过七牛处理成webp动态图，不支持维持原样。</li>
+<li>HTML5标签 picture,是一套精简的兼容方案，浏览器兼容可通过此标签来展示对应的图片</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​&lt;picture&gt;</span><br><span class="line">  &lt;source srcset&#x3D;&quot;https:&#x2F;&#x2F;dn-odum9helk.qbox.me&#x2F;test.gif?imageMogr2&#x2F;thumbnail&#x2F;100x|imageMogr2&#x2F;format&#x2F;webp&quot; type&#x3D;&quot;image&#x2F;webp&quot; &#x2F;&gt;</span><br><span class="line">  &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;dn-odum9helk.qbox.me&#x2F;test.gif?imageMogr2&#x2F;thumbnail&#x2F;100x&quot; alt&#x3D;&quot;MDN&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;picture&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>应该用webp嘛？</strong></p>
+<p>由于WebP在全球范围内的支持率徘徊在80％左右，因此使用此图像格式替代PNG和JPEG在很大程度上很有意义。需要特别注意的是，无论如何实现WebP，您都只是向支持WebP的浏览器提供WebP图像，然后将默认格式（如PNG和JPEG）提供给其他浏览器。使用WebP不会破坏图像。可以将其视为增加而不是更改。与PNG和JPEG相比，还需要考虑其他一些因素，例如浏览器市场份额，当前流量和WebP文件大小。</p>
+<hr>
+<p><strong>参考文章：</strong></p>
+<p><a href="https://dreampiggy.com/2017/03/06/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8A%E5%8A%A8%E6%80%81%E5%9B%BE%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">客户端上动态图格式对比</a></p>
+<p><a href="https://cloudinary.com/blog/animated_webp_how_to_convert_animated_gif_to_webp_and_save_up_to_90_bandwidth" target="_blank" rel="noopener">Animated WebP - how to convert animated GIF to WebP and save up to 90% bandwidth</a></p>
+<p><a href="https://www.zcool.com.cn/work/ZMjgyNjA2NjQ=.html" target="_blank" rel="noopener">动效输出：用APNG代替GIF完美输出动态效果</a></p>
+<p><a href="https://aotu.io/notes/2016/11/07/apng/index.html" target="_blank" rel="noopener">APNG的那些事</a></p>
 
     
 
@@ -269,7 +314,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://lizheguang.github.io/zhaiGuang/2019/02/15/TCP三次握手与四次握手/" title="TCP三次握手与四次握手" target="_blank">https://lizheguang.github.io/zhaiGuang/2019/02/15/TCP三次握手与四次握手/</a>
+          <a href="https://lizheguang.github.io/zhaiGuang/2020/10/10/gitwebp/" title="apng、webp适用性调研与兼容性方案" target="_blank">https://lizheguang.github.io/zhaiGuang/2020/10/10/gitwebp/</a>
         </li>
         
         <li>
@@ -336,7 +381,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://lizheguang.github.io/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://lizheguang.github.io/2020/10/10/gitwebp/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -351,18 +396,9 @@
 
 <nav id="article-nav">
   
-    <a href="/zhaiGuang/2019/02/15/%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          类数组对象
-        
-      </div>
-    </a>
   
-  
-    <a href="/zhaiGuang/2019/02/15/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">类数组对象</div>
+    <a href="/zhaiGuang/2020/08/07/whyJiaoShoujia/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">什么是前端脚手架？</div>
       <i class="icon-circle-right"></i>
     </a>
   

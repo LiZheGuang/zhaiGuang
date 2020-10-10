@@ -184,6 +184,143 @@
             
 
   
+    <article id="post-gitwebp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/zhaiGuang/2020/10/10/gitwebp/" target="_blank">apng、webp适用性调研与兼容性方案</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/zhaiGuang/2020/10/10/gitwebp/" class="archive-article-date">
+        <time datetime="2020-10-10T09:27:46.646Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="apng、webp适用性调研与兼容性方案"><a href="#apng、webp适用性调研与兼容性方案" class="headerlink" title="apng、webp适用性调研与兼容性方案"></a>apng、webp适用性调研与兼容性方案</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>业务中大量使用gif动态图，动画不细腻，体积大，占用不必要的带宽，根据这几点，寻找能替代gif图的方案（动画流程，体积小）</p>
+<h3 id="动态图类型"><a href="#动态图类型" class="headerlink" title="动态图类型"></a>动态图类型</h3><h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>GIF 是一个非常古老的格式，1987 年诞生，最后一个版本是 1989 年。（这就是为什么 GIF 文件头的 magic number 是 GIF89a）</p>
+<p><strong>颜色</strong></p>
+<p>GIF 每个像素只有 8 bit，也就是说只有 256 种颜色，于是很多人误以为 GIF 不支持 24 bit RGB，但实际上，GIF 的限制是每一帧最多只能有 256 种颜色，但是每种颜色可以是 24 bit 的。不过即使是这样，256 种颜色还是太少了，这就导致了 GIF 的画质都比较差。</p>
+<p>而 APNG 和 WebP 则完全没有这方面的限制。</p>
+<p><strong>透明</strong></p>
+<p>GIF 虽然也支持透明，但不支持半透明，只支持完全透明或者完全不透明。如果把一个边缘是半透明的图片转换成 GIF，就会出现杂边问题。</p>
+<p><strong>兼容性</strong></p>
+<p>是唯一GIF的优势了，几乎所有浏览器都支持GIF</p>
+<hr>
+<h4 id="APNG"><a href="#APNG" class="headerlink" title="APNG"></a>APNG</h4><p><strong>APNG是什么</strong></p>
+<p>APNG 是什么？相对于 GIF 有哪些优势？APNG 是一个基于 PNG 格式的位图动画格式图片，因为对于一直以来的特点就是以动态显示为主的 GIF，为了更好地在网络上传播，它需要牺牲质量来降低体积，图像信息比较多的情况下，颗粒感很明显。APNG 是普通 png 图片的升级版，它的后缀依然是.png，包含动态的情况下体积会比普通静态 png 打出数倍，可以做到无损的情况展示动态。其诞生的目的是为了替代老旧的 GIF 格式，但它目前并没有获得 PNG 组织官方的认可。</p>
+<p><strong>APNG应用场景</strong></p>
+<p><img src="/zhaiGuang/2020/10/10/gitwebp/1601351760565.png" alt="Alt text"></p>
+<p><a href="http://littlesvr.ca/apng/gif_vs_apng.html" target="_blank" rel="noopener">GIF VS APNG</a></p>
+<p><strong>兼容性</strong><br><img src="/zhaiGuang/2020/10/10/gitwebp/1601351344820.png" alt="Alt text"></p>
+<p><a href="https://caniuse.com/?search=APNG" target="_blank" rel="noopener">详情兼容情况</a><br>对于 APNG 而言，支持的浏览器只有 Firefox 和 Safari，同时 Chrome 59 也将支持 APNG，</p>
+<p><strong>对比</strong></p>
+<p>GIF：</p>
+<p>最多支持 8 位 256 色，色阶过渡糟糕，图片具有颗粒感<br>不支持 Alpha 透明通道，边缘有杂边<br>APNG：</p>
+<p>支持 24 位真彩色图片<br>支持 8 位 Alpha 透明通道<br>向下兼容 PNG</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>很难被标准化</li>
+<li>生成比较繁琐（特殊处理才能比原有GIF图体积大，在压缩上并没有webp效果好,参考动效输出：用APNG代替GIF完美输出动态效果）</li>
+</ul>
+<hr>
+<h5 id="WEBP"><a href="#WEBP" class="headerlink" title="WEBP"></a>WEBP</h5><p>先放一个 WebP 转换的示例链接，可以直观感受 WebP 在图片大小上的优势。</p>
+<p><a href="https://www.upyun.com/webp" target="_blank" rel="noopener">DEMO地址</a></p>
+<p>WebP，是一种同时提供了有损压缩与无损压缩的图片文件格式，派生自视频编码格式 VP8。WebP 最初在2010年发布，目标是减少文件大小，但达到 和 JEPG 格式相同的图片质量，希望能够减少图片档在网络上的发送时间</p>
+<p><strong>同等质量但是图片更小</strong></p>
+<p><a href="https://res.cloudinary.com/demo/image/upload/bored_animation.gif" target="_blank" rel="noopener">GIF图</a></p>
+<p><a href="https://res.cloudinary.com/demo/image/upload/fl_awebp/bored_animation.webp" target="_blank" rel="noopener">webp</a></p>
+<p>从动画GIF切换到动画WebP的结果令人印象深刻-在上面显示的示例中，图像大小和带宽减少了65-90％，并且具有相同的视觉效果。尽管WebP仅由少数浏览器使用，但是最新版本的Chrome变得越来越流行，因此WebP的重要性正在上升。</p>
+<p>此外，如果将原始的高质量视频转换为WebP（而不仅仅是像我们在上面的示例中那样从GIF转换为WebP），则与WebP格式的全彩色支持相比，您将获得更好的视觉效果动画(GIF中最多只能显示256种颜色。)</p>
+<p><strong>压缩之后质量无明显变化</strong><br>JPEG 格式的图片在质量较低时会有明显的缺陷，尤其是当图片包含微小的细节或文本时，但 WebP 格式则没有明显的缺陷，但也会在低质量设置时产生稍微模糊的图像</p>
+<p><strong>完美支持无损图像</strong><br>WebP 同样支持一如 PNG 格式的无损模式，想要生成无损的 WebP 文件，只需将「quality」变量设置为 100</p>
+<p><strong>支持动态图（Animated WebP）</strong></p>
+<p>兼容性不是很乐观</p>
+<p>苹果的Safari浏览器及其iOS Safari浏览器将在Safari 14和iOS 14（预计于2020年9月发布）中都具有WebP支持</p>
+<p><strong>缺点：浏览器兼容性</strong></p>
+<p>在洋葱学院APP中存在了兼容问题:<br>1.安卓暂时未发现不兼容问题<br>2.ios 系统存在版本兼容问题（12.x系统上就存在了不兼容情况）</p>
+<p><strong>兼容场景：</strong></p>
+<p><a href="https://caniuse.com/?search=Webp" target="_blank" rel="noopener">WEBP兼容地址</a><br><a href="https://caniuse.com/?search=picture" target="_blank" rel="noopener">picture兼容地址</a></p>
+<ul>
+<li>解决兼容：</li>
+<li>七牛提供了高级图像处理的功能</li>
+<li>通过URL后拼接参数，能把gif图处理成webp</li>
+<li>1.安卓下七牛CDN借用高级图像处理功能form成webp（IOS维持GIF图原样）</li>
+<li>2.JS判断是否支持webp如果支持，把gif图通过七牛处理成webp动态图，不支持维持原样。</li>
+<li>HTML5标签 picture,是一套精简的兼容方案，浏览器兼容可通过此标签来展示对应的图片</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​&lt;picture&gt;</span><br><span class="line">  &lt;source srcset&#x3D;&quot;https:&#x2F;&#x2F;dn-odum9helk.qbox.me&#x2F;test.gif?imageMogr2&#x2F;thumbnail&#x2F;100x|imageMogr2&#x2F;format&#x2F;webp&quot; type&#x3D;&quot;image&#x2F;webp&quot; &#x2F;&gt;</span><br><span class="line">  &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;dn-odum9helk.qbox.me&#x2F;test.gif?imageMogr2&#x2F;thumbnail&#x2F;100x&quot; alt&#x3D;&quot;MDN&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;picture&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>应该用webp嘛？</strong></p>
+<p>由于WebP在全球范围内的支持率徘徊在80％左右，因此使用此图像格式替代PNG和JPEG在很大程度上很有意义。需要特别注意的是，无论如何实现WebP，您都只是向支持WebP的浏览器提供WebP图像，然后将默认格式（如PNG和JPEG）提供给其他浏览器。使用WebP不会破坏图像。可以将其视为增加而不是更改。与PNG和JPEG相比，还需要考虑其他一些因素，例如浏览器市场份额，当前流量和WebP文件大小。</p>
+<hr>
+<p><strong>参考文章：</strong></p>
+<p><a href="https://dreampiggy.com/2017/03/06/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8A%E5%8A%A8%E6%80%81%E5%9B%BE%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">客户端上动态图格式对比</a></p>
+<p><a href="https://cloudinary.com/blog/animated_webp_how_to_convert_animated_gif_to_webp_and_save_up_to_90_bandwidth" target="_blank" rel="noopener">Animated WebP - how to convert animated GIF to WebP and save up to 90% bandwidth</a></p>
+<p><a href="https://www.zcool.com.cn/work/ZMjgyNjA2NjQ=.html" target="_blank" rel="noopener">动效输出：用APNG代替GIF完美输出动态效果</a></p>
+<p><a href="https://aotu.io/notes/2016/11/07/apng/index.html" target="_blank" rel="noopener">APNG的那些事</a></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/zhaiGuang/2020/10/10/gitwebp/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-whyJiaoShoujia" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -342,140 +479,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/zhaiGuang/2020/07/29/git-cz/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/zhaiGuang/2019/02/15/hello-world/" target="_blank">类数组对象</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/zhaiGuang/2019/02/15/hello-world/" class="archive-article-date">
-        <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="类数组对象"><a href="#类数组对象" class="headerlink" title="类数组对象"></a>类数组对象</h1><p><strong>故事要从一行代码说起</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr[0]</span><br><span class="line">&#x2F;&#x2F; &#39;tom&#39;</span><br></pre></td></tr></table></figure>
-
-<p>请问这里的 arr 一定是一个数组吗？非也，它也可能是一个对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;</span><br><span class="line">&#125;</span><br><span class="line">arr[0]</span><br><span class="line">&#x2F;&#x2F; &#39;tom&#39;</span><br></pre></td></tr></table></figure>
-
-<p>前面我们讲过 <strong>arguments</strong> 这个对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let say &#x3D; function ()&#123;</span><br><span class="line">	console.log(arguments)</span><br><span class="line">&#125;</span><br><span class="line">say(1,2)</span><br></pre></td></tr></table></figure>
-
-<p>其大致结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0: 1</span><br><span class="line">1: 2</span><br><span class="line">length: 2</span><br></pre></td></tr></table></figure>
-
-<p>我们称 arguments 为类数组对象，正是因为它有这个 length 属性，虽然不能用数组的方法，但是可以通过索引来访问，而且还可以将其转换成数组。</p>
-<p>如果一个普通的对象加上一个 length 属性就可以变成一个类数组对象。</p>
-<p>之所以今天要讲这个类数组对象，是因为 JavaScirpt 中有很多方法和处理跟类数组对象有关系，所以我们有必要搞清楚这个概念。</p>
-<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><p>ES6 的 Array.from() 可以将一个类数组对象转成数组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let say &#x3D; function () &#123;</span><br><span class="line">  console.log(Array.from(arguments))</span><br><span class="line">&#125;</span><br><span class="line">say(1, 2)</span><br><span class="line">&#x2F;&#x2F; [1, 2]</span><br></pre></td></tr></table></figure>
-
-<p>当然也可以用 ES5 的 slice</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.slice.call(arguments)</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们自己起来创建一个类数组对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;, &quot;lucy&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>如果 length 值和实际元素不相等呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;, undefined]</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，如果 length 值大于实际元素的数量，不足的将用 undefined 填充，那么反过来呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 1</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;]</span><br></pre></td></tr></table></figure>
-<p>可见，length 值是决定最终生成数组的长度的，多余的去掉，不足的用 undefined 补齐。好奇心驱使我们继续探索，0 和 1 这两个索引真的有用吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mans &#x3D; &#123;</span><br><span class="line">  3: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [undefined, &quot;lucy&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>所以，这个值是真的有用的，决定了最终的填充索引。细心的同学可能会记得，还有另外一个转换 arguments 的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...arguments]</span><br></pre></td></tr></table></figure>
-<p>那么这个展开运算符可以用到普通的类数组对象上吗？还是亲自测试一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;;</span><br><span class="line">[...mans]</span><br><span class="line">&#x2F;&#x2F; Uncaught TypeError: mans is not iterable</span><br></pre></td></tr></table></figure>
-
-<p>可以看到报错了，mans 不是可迭代的，也就证实了 arguments 除了是类数组对象，还是一个可迭代对象，而我们自定义的对象并不具备可迭代功能，所以不能使用展开运算符。</p>
-<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>因为有 length 属性，所以我们可以用 for 循环进行遍历</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;;</span><br><span class="line">for (let i &#x3D; 0; i &lt; mans.length; i++) &#123;</span><br><span class="line">  console.log(i)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
-
-<p>除了传统的 for 循环，其它遍历方法可以使用吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mans.forEach(item &#x3D;&gt; &#123;</span><br><span class="line">  console.log(item)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; mans.forEach is not a function</span><br></pre></td></tr></table></figure>
-
-<p>因为 forEach 是数组的一个方法，只能用于数组，自然就不能用在类数组对象身上了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (let man of mans) &#123;</span><br><span class="line">  console.log(man)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; mans is not iterable</span><br></pre></td></tr></table></figure>
-
-<p>因为 for…of 也是需要应用到可迭代对象上的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (let index in mans) &#123;</span><br><span class="line">  console.log(index)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
-
-<p>所以只有 for 和 for…in 可以用来遍历类数组对象。</p>
-<p>检测</p>
-<p>除了 arguments，DOM 元素节点集合也是一个类数组对象，打开任意一个网页，F12 输入下面的代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.getElementsByTagName(&#39;div&#39;)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到里面有 length 属性，的确是类数组的结构，Array 也有 length 属性，难道这就不会是一个真的数组吗？</p>
-<p>倒也是，这个时候就需要利用我们前面讲过的检测数组的方法了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(document.getElementsByTagName(&#39;div&#39;))</span><br><span class="line">&#x2F;&#x2F; [object HTMLCollection]</span><br></pre></td></tr></table></figure>
-
-<p>可以看到这确实不是一个数组。</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/zhaiGuang/2019/02/15/hello-world/">展开全文 >></a>
     </p>
     
 
@@ -705,6 +708,140 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/zhaiGuang/2019/02/15/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/zhaiGuang/2019/02/15/hello-world/" target="_blank">类数组对象</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/zhaiGuang/2019/02/15/hello-world/" class="archive-article-date">
+        <time datetime="2019-02-15T04:17:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-15</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="类数组对象"><a href="#类数组对象" class="headerlink" title="类数组对象"></a>类数组对象</h1><p><strong>故事要从一行代码说起</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr[0]</span><br><span class="line">&#x2F;&#x2F; &#39;tom&#39;</span><br></pre></td></tr></table></figure>
+
+<p>请问这里的 arr 一定是一个数组吗？非也，它也可能是一个对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;</span><br><span class="line">&#125;</span><br><span class="line">arr[0]</span><br><span class="line">&#x2F;&#x2F; &#39;tom&#39;</span><br></pre></td></tr></table></figure>
+
+<p>前面我们讲过 <strong>arguments</strong> 这个对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let say &#x3D; function ()&#123;</span><br><span class="line">	console.log(arguments)</span><br><span class="line">&#125;</span><br><span class="line">say(1,2)</span><br></pre></td></tr></table></figure>
+
+<p>其大致结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0: 1</span><br><span class="line">1: 2</span><br><span class="line">length: 2</span><br></pre></td></tr></table></figure>
+
+<p>我们称 arguments 为类数组对象，正是因为它有这个 length 属性，虽然不能用数组的方法，但是可以通过索引来访问，而且还可以将其转换成数组。</p>
+<p>如果一个普通的对象加上一个 length 属性就可以变成一个类数组对象。</p>
+<p>之所以今天要讲这个类数组对象，是因为 JavaScirpt 中有很多方法和处理跟类数组对象有关系，所以我们有必要搞清楚这个概念。</p>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><p>ES6 的 Array.from() 可以将一个类数组对象转成数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let say &#x3D; function () &#123;</span><br><span class="line">  console.log(Array.from(arguments))</span><br><span class="line">&#125;</span><br><span class="line">say(1, 2)</span><br><span class="line">&#x2F;&#x2F; [1, 2]</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以用 ES5 的 slice</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.slice.call(arguments)</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们自己起来创建一个类数组对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;, &quot;lucy&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>如果 length 值和实际元素不相等呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;, undefined]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，如果 length 值大于实际元素的数量，不足的将用 undefined 填充，那么反过来呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 1</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [&quot;tom&quot;]</span><br></pre></td></tr></table></figure>
+<p>可见，length 值是决定最终生成数组的长度的，多余的去掉，不足的用 undefined 补齐。好奇心驱使我们继续探索，0 和 1 这两个索引真的有用吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mans &#x3D; &#123;</span><br><span class="line">  3: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;</span><br><span class="line">Array.from(mans)</span><br><span class="line">&#x2F;&#x2F; [undefined, &quot;lucy&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>所以，这个值是真的有用的，决定了最终的填充索引。细心的同学可能会记得，还有另外一个转换 arguments 的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...arguments]</span><br></pre></td></tr></table></figure>
+<p>那么这个展开运算符可以用到普通的类数组对象上吗？还是亲自测试一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;;</span><br><span class="line">[...mans]</span><br><span class="line">&#x2F;&#x2F; Uncaught TypeError: mans is not iterable</span><br></pre></td></tr></table></figure>
+
+<p>可以看到报错了，mans 不是可迭代的，也就证实了 arguments 除了是类数组对象，还是一个可迭代对象，而我们自定义的对象并不具备可迭代功能，所以不能使用展开运算符。</p>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>因为有 length 属性，所以我们可以用 for 循环进行遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let mans &#x3D; &#123;</span><br><span class="line">  0: &#39;tom&#39;,</span><br><span class="line">  1: &#39;lucy&#39;,</span><br><span class="line">  length: 2</span><br><span class="line">&#125;;</span><br><span class="line">for (let i &#x3D; 0; i &lt; mans.length; i++) &#123;</span><br><span class="line">  console.log(i)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<p>除了传统的 for 循环，其它遍历方法可以使用吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mans.forEach(item &#x3D;&gt; &#123;</span><br><span class="line">  console.log(item)</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; mans.forEach is not a function</span><br></pre></td></tr></table></figure>
+
+<p>因为 forEach 是数组的一个方法，只能用于数组，自然就不能用在类数组对象身上了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (let man of mans) &#123;</span><br><span class="line">  console.log(man)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; mans is not iterable</span><br></pre></td></tr></table></figure>
+
+<p>因为 for…of 也是需要应用到可迭代对象上的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (let index in mans) &#123;</span><br><span class="line">  console.log(index)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<p>所以只有 for 和 for…in 可以用来遍历类数组对象。</p>
+<p>检测</p>
+<p>除了 arguments，DOM 元素节点集合也是一个类数组对象，打开任意一个网页，F12 输入下面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.getElementsByTagName(&#39;div&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到里面有 length 属性，的确是类数组的结构，Array 也有 length 属性，难道这就不会是一个真的数组吗？</p>
+<p>倒也是，这个时候就需要利用我们前面讲过的检测数组的方法了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(document.getElementsByTagName(&#39;div&#39;))</span><br><span class="line">&#x2F;&#x2F; [object HTMLCollection]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这确实不是一个数组。</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/zhaiGuang/2019/02/15/hello-world/">展开全文 >></a>
     </p>
     
 
@@ -1477,102 +1614,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/zhaiGuang/2018/09/25/mongoose%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-小程序开发之利用本地缓存提前渲染界面" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/zhaiGuang/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" target="_blank">小程序开发之利用本地缓存提前渲染界面</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/zhaiGuang/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/" class="archive-article-date">
-        <time datetime="2018-09-25T10:02:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-25</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h4 id="小程序开发之利用本地缓存提前渲染界面"><a href="#小程序开发之利用本地缓存提前渲染界面" class="headerlink" title="小程序开发之利用本地缓存提前渲染界面"></a>小程序开发之利用本地缓存提前渲染界面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“摘自微信官方团队”</span><br><span class="line">讨论一个需求：我们要实现了一个购物商城的小程序，首页是展示一堆商品的列表。一般的实现方法就是在页面onLoad回调之后通过wx.request向服务器发起一个请求去拉取首页的商品列表数据，等待wx.request的success回调之后把数据通过setData渲染到界面上。</span><br></pre></td></tr></table></figure>
-
-<p>那么，在这种正常的请求中，是否还能有优化的方法？</p>
-<p>以下代码为微信团队提供的优化思路</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  onLoad: function() &#123;</span><br><span class="line">    var that &#x3D; this</span><br><span class="line">    var list &#x3D;wx.getStorageSync(&quot;list&quot;)</span><br><span class="line">    if (list) &#123; &#x2F;&#x2F; 本地如果有缓存列表，提前渲染</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        list: list</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: &#39;https:&#x2F;&#x2F;test.com&#x2F;getproductlist&#39;,</span><br><span class="line">      success: function (res) &#123;</span><br><span class="line">        if (res.statusCode &#x3D;&#x3D;&#x3D; 200) &#123;</span><br><span class="line">          list &#x3D; res.data.list</span><br><span class="line">          that.setData(&#123; &#x2F;&#x2F; 再次渲染列表</span><br><span class="line">            list: list</span><br><span class="line">          &#125;)</span><br><span class="line">          wx.setStorageSync(&quot;list&quot;,list) &#x2F;&#x2F; 覆盖缓存数据</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<p><strong>解析简单以上简单的代码</strong>：</p>
-<p>这种做法可以让用户体验你的小程序时感觉加载非常快，但是你还要留意这个做法的缺点，如果小程序对渲染的数据实时性要求非常高的话，用户看到一个旧数据的界面会非常困惑。因此一般在对数据实时性/一致性要求不高的页面采用这个方法来做提前渲染，用以优化小程序体验。</p>
-<p>整理这段官方的说明:</p>
-<p><strong>优点</strong><br>让用户感知到小程序加载的速度非常快！</p>
-<p><strong>为什么？</strong><br>假设发送请求之后的2秒内收到返回，那么在请求返回前可以渲染本地缓存的数据，不会产生用户，盯着一个白页面与加载页的情况。<br>避免了普遍的没有数据会留白与加载中的场景</p>
-<p><strong>原因：</strong><br>在发起请求之前就可以把缓存进行渲染，在请求成功之后再次进行请求后返回的数据渲染。</p>
-<p><strong>缺点</strong><br>难免会有老数据的一闪而过，如果请求服务端过程中不给力的话，会让用户在很长时间看到不正确的数据！</p>
-<p><strong>使用场景</strong><br>数据不会实时变更的场景<br>用户认为这个不是很重要的场景<br>有本地缓存与无本地缓存的对比<br>对比条件为 “用户看到页面数据展现的时间”<br>测试场景为小程序模拟器</p>
-<p>以上截图仅为，在模拟器上运行，无缓存总会比有缓存的提前平均在300MS的时间让用户感观到视图，当然模拟器上会有瑕疵的白色页面。</p>
-<p>怎么样更好的使用微信小程序缓存？</p>
-<p><strong>什么时候使用本地缓存？</strong><br>不能乱用</p>
-<p>举个列子：订单列表，退换货商品详情这些地方不能用，如果一个商品的价格随意变动，只会给用户带来不稳定的因素。</p>
-<p>什么时候要删除本地缓存？（这个我感觉还好）</p>
-<p>小程序有10MB缓存大小，如果本地缓存超过10M，添加本地缓存的时候就会fail</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/zhaiGuang/2018/09/25/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%8F%90%E5%89%8D%E6%B8%B2%E6%9F%93%E7%95%8C%E9%9D%A2/">展开全文 >></a>
     </p>
     
 
